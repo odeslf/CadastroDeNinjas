@@ -17,6 +17,7 @@ public class NinjaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    @Column(unique = true)//Somente aceitar emails únicos
     private String email;
     private int idade;
     @ManyToOne //@ManyToOne um ninja só poder ter uma missão
