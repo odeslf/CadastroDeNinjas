@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity //Entity transforma uma classe em uma entidade do DB
+@Entity
 @Table(name = "tb_cadastro")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,16 +17,20 @@ public class NinjaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "nome")
     private String nome;
-    @Column(unique = true)//Somente aceitar emails únicos
+
+    @Column(unique = true)
     private String email;
+
     @Column(name = "idade")
     private int idade;
 
-    @ManyToOne //@ManyToOne um ninja só poder ter uma missão
-    @JoinColumn(name = "missoes_id")// Foreign key
+    @ManyToOne
+    @JoinColumn(name = "missoes_id")
     private MissoesModel missoes;
+
     @Column(name = "rank")
     private String rank;
 }
