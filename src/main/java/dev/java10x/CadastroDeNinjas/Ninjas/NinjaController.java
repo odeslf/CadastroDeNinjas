@@ -28,18 +28,29 @@ public class NinjaController {
     }
 
     @GetMapping("/listar")
-    public List<NinjaDTO> listarNinjas(){
-        return ninjaService.listarNinjas();
+    public ResponseEntity<List<NinjaDTO>> listarNinjas(){
+        List<NinjaDTO> ninjas = ninjaService.listarNinjas();
+        return ResponseEntity.status(HttpStatus.OK).body(ninjas);
     }
 
     @GetMapping("/listar/{id}")
-    public NinjaDTO listarPorId(@PathVariable Long id){
-        return ninjaService.listarId(id);
+    public ResponseEntity<?> listarPorId(@PathVariable Long id){
+        NinjaDTO ninja = ninjaService.listarId(id);
+        if (ninja != null){
+            return ResponseEntity.status(HttpStatus.OK).body(ninja);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();        }
+
     }
 
     @PutMapping("/alterar/{id}")
-    public NinjaDTO alterarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
-        return ninjaService.atualizarNinja(id, ninjaAtualizado);
+    public ResponseEntity<?> alterarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
+        NinjaDTO ninja = ninjaService.atualizarNinja(id, ninjaAtualizado);
+        if (ninja != null){
+            return ResponseEntity.ok(ninja);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/deletar/{id}")
