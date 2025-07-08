@@ -18,8 +18,9 @@ public class MissoesController {
 
     //GET - Envia requisição para  MOSTRAR as missoes
     @GetMapping()
-    public List<MissoesDTO> listar(){
-        return missoesService.getAllMissoes();
+    public ResponseEntity<List<MissoesDTO>> listar(){
+        List<MissoesDTO> missoes = missoesService.getAllMissoes();
+        return ResponseEntity.status(HttpStatus.OK).body(missoes);
     }
 
     //Post - Envia uma requisição para CRIAR missoes
@@ -31,8 +32,13 @@ public class MissoesController {
 
     //Put - Envia uma requisição para ALTERAR missoes
     @PutMapping("/{id}")
-    public MissoesDTO alterarMissao(@PathVariable Long id, @RequestBody MissoesDTO missoesModel){
-        return missoesService.updateMissoes(id, missoesModel);
+    public ResponseEntity<?> alterarMissao(@PathVariable Long id, @RequestBody MissoesDTO missoesModel){
+        MissoesDTO missao = missoesService.updateMissoes(id, missoesModel);
+        if(missao != null){
+            return ResponseEntity.status(HttpStatus.OK).body(missao.toString());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     //Delete - Envia uma requisição para DELETAR missoes
