@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Ninjas</title>
+    <link rel="stylesheet" href="/styles.css"> </head>
+<body>
+<h1>Lista de Ninjas</h1>
+<a class="btn-adicionar" th:href="@{/ninja/ui/adicionar}">Adicionar Novo Ninja</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Email</th>
+        <th>Rank</th>
+        <th>Missoes</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ninja : ${ninjas}">
+        <td th:text="${ninja.id}"></td>
+        <td th:text="${ninja.nome}"></td>
+        <td th:text="${ninja.idade}"></td>
+        <td th:text="${ninja.email}"></td>
+        <td th:text="${ninja.rank}"></td>
+        <td>
+                <span th:if="${ninja.missoes}"><span th:text="${ninja.missoes.nome}"></span>, Dificuldade: <span th:text="${
+                ninja.missoes.dificuldade}"></span></span>
+            <span th:if="${ninja.missoes == null}" class="no-mission">Sem missões</span>
+        </td>
+        <td>
+            <a th:href="@{/ninja/ui/listar/{id}(id=${ninja.id})}">Ver detalhes</a> |
+            <a href="#">Alterar</a> |
+            <a th:href="@{/ninja/ui/deletar/{id}(id=${ninja.id})}" class="delete-link">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

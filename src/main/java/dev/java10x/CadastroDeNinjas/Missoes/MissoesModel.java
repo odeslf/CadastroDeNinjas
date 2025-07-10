@@ -23,7 +23,7 @@ public class MissoesModel {
 
     private String dificuldade;
 
-    @OneToMany(mappedBy = "missoes")
+    @OneToMany(mappedBy = "missoes", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<NinjaModel> ninja;
 }

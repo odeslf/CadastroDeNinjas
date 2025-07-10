@@ -35,7 +35,7 @@ public class NinjaController {
 
     @GetMapping("/listar/{id}")
     public ResponseEntity<?> listarPorId(@PathVariable Long id){
-        NinjaDTO ninja = ninjaService.listarId(id);
+        NinjaDTO ninja = ninjaService.listarNinjasPorId(id);
         if (ninja != null){
             return ResponseEntity.status(HttpStatus.OK).body(ninja);
         } else {
@@ -55,8 +55,8 @@ public class NinjaController {
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarNinja(@PathVariable Long id) {
-        if (ninjaService.listarId(id) != null) {
-            ninjaService.deletarNinja(id);
+        if (ninjaService.listarNinjasPorId(id) != null) {
+            ninjaService.deletarNinjaPorId(id);
             return ResponseEntity.ok("Ninja Deletado com Sucesso!");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
